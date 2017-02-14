@@ -98,6 +98,7 @@ namespace PrimerParcialAplicada1.BLL
                     throw;
                 }
             }
+
         }
 
         public static List<Empleado> GetListFechas(DateTime desde, DateTime hasta)
