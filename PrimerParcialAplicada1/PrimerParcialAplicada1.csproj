@@ -96,6 +96,7 @@
     <Compile Include="UI\Registros\FrmRegistroEmpleados.Designer.cs">
       <DependentUpon>FrmRegistroEmpleados.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades.cs" />
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>

@@ -58,10 +58,10 @@ namespace PrimerParcialAplicada1.UI.Registros
             {
                 int id = 0;
                 if (!string.IsNullOrWhiteSpace(empleadoIdTextBox.Text))
-                    id = Convert.ToInt32(empleadoIdTextBox.Text);
+                    id = Utilidades.ToInt(empleadoIdTextBox.Text);
                 float sueldo = 0;
                 if (!string.IsNullOrWhiteSpace(sueldoTextBox.Text))
-                    sueldo = Convert.ToSingle(sueldoTextBox.Text);
+                    sueldo = Utilidades.ToFloat(sueldoTextBox.Text);
 
                 if (BLL.EmpleadoBLL.Guardar(new Empleado(id, nombresTextBox.Text, fechaNacimientoDateTimePicker.Value, sueldo)))
                 {
