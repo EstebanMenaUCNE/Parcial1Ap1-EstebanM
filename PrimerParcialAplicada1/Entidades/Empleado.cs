@@ -19,7 +19,7 @@ namespace PrimerParcialAplicada1.Entidades
 
         }
 
-        public Empleado(int empleadoId, string nombres, DateTime fechaNacimiento, float sueldo)
+        public Empleado(int empleadoId, string nombres, DateTime fechaNacimiento, float sueldo )
         {
             EmpleadoId = empleadoId;
             Nombres = nombres;
