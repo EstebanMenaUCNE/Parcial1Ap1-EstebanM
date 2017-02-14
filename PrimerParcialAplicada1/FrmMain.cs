@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PrimerParcialAplicada1.UI.Consultas;
+using PrimerParcialAplicada1.UI.Registros;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +16,21 @@ namespace PrimerParcialAplicada1
         public FrmMain()
         {
             InitializeComponent();
+        }
+
+        private void empleadosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new FrmRegistroEmpleados().Show();
+        }
+
+        private void empleadosToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            new FrmConsultaEmpleados().Show();
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
