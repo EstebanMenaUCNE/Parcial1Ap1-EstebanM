@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PrimerParcialAplicada1.DAL;
+using PrimerParcialAplicada1.Entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,25 +20,28 @@ namespace PrimerParcialAplicada1.UI.Consultas
 
         private void FiltrarButton_Click(object sender, EventArgs e)
         {
-            if (NombresCheckBox.Checked && FechaCheckBox.Checked)
+            using (var con = new Repositorio<Empleado>())
             {
-                    EmpleadosDataGridView.DataSource = BLL.EmpleadoBLL.GetListNombresFechas(NombresTextBox.Text, DesdeDateTimePicker.Value, HastaDateTimePicker.Value);
-            }
-            else
-            {
-                if (NombresCheckBox.Checked)
+                if (NombresCheckBox.Checked && FechaCheckBox.Checked)
                 {
-                    EmpleadosDataGridView.DataSource = BLL.EmpleadoBLL.GetListNombres(NombresTextBox.Text);
+                    EmpleadosDataGridView.DataSource = con.GetListNombresFechas(E => E.Nombres == NombresTextBox.Text && E.FechaNacimiento > DesdeDateTimePicker.Value && E.FechaNacimiento < HastaDateTimePicker.Value);
                 }
                 else
                 {
-                    if (FechaCheckBox.Checked)
+                    if (NombresCheckBox.Checked)
                     {
-                        EmpleadosDataGridView.DataSource = BLL.EmpleadoBLL.GetListFechas(DesdeDateTimePicker.Value, HastaDateTimePicker.Value);
+                        EmpleadosDataGridView.DataSource = con.GetListNombres(E => E.Nombres == NombresTextBox.Text);
                     }
                     else
                     {
-                        EmpleadosDataGridView.DataSource = BLL.EmpleadoBLL.GetList();
+                        if (FechaCheckBox.Checked)
+                        {
+                            EmpleadosDataGridView.DataSource = con.GetListFechas(E => E.FechaNacimiento > DesdeDateTimePicker.Value && E.FechaNacimiento < HastaDateTimePicker.Value);
+                        }
+                        else
+                        {
+                            EmpleadosDataGridView.DataSource = con.GetList();
+                        }
                     }
                 }
             }

@@ -69,7 +69,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\EmpleadoBLL.cs" />
+    <Compile Include="BLL\RepositorioBLL.cs" />
+    <Compile Include="DAL\IRepository.cs" />
     <Compile Include="DAL\ParcialDb.cs" />
+    <Compile Include="DAL\Repositorio.cs" />
     <Compile Include="Entidades\Empleado.cs" />
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>

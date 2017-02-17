@@ -52,18 +52,22 @@ namespace PrimerParcialAplicada1.UI.Registros
             Limpiar();
         }
 
+        private Empleado GetInstaciaEmpleado()
+        {
+            int id = 0;
+            if (!string.IsNullOrWhiteSpace(empleadoIdTextBox.Text))
+                id = Utilidades.ToInt(empleadoIdTextBox.Text);
+            float sueldo = 0;
+            if (!string.IsNullOrWhiteSpace(sueldoTextBox.Text))
+                sueldo = Utilidades.ToFloat(sueldoTextBox.Text);
+            return new Empleado(id, nombresTextBox.Text, fechaNacimientoDateTimePicker.Value, sueldo);
+        }
+
         private void GuardarButton_Click(object sender, EventArgs e)
         {
             if(Validar())
             {
-                int id = 0;
-                if (!string.IsNullOrWhiteSpace(empleadoIdTextBox.Text))
-                    id = Utilidades.ToInt(empleadoIdTextBox.Text);
-                float sueldo = 0;
-                if (!string.IsNullOrWhiteSpace(sueldoTextBox.Text))
-                    sueldo = Utilidades.ToFloat(sueldoTextBox.Text);
-
-                if (BLL.EmpleadoBLL.Guardar(new Empleado(id, nombresTextBox.Text, fechaNacimientoDateTimePicker.Value, sueldo)))
+                if (BLL.RepositorioBLL.Guardar(GetInstaciaEmpleado()))
                 {
                     MessageBox.Show("Guardado con éxito!");
                     Limpiar();
@@ -79,7 +83,7 @@ namespace PrimerParcialAplicada1.UI.Registros
         {
             if (!string.IsNullOrWhiteSpace(empleadoIdTextBox.Text))
             {
-                if (BLL.EmpleadoBLL.Eliminar(Convert.ToInt32(empleadoIdTextBox.Text)))
+                if (BLL.RepositorioBLL.Eliminar(GetInstaciaEmpleado()))
                 {
                     MessageBox.Show("Eliminado con éxito!");
                     Limpiar();
@@ -93,7 +97,21 @@ namespace PrimerParcialAplicada1.UI.Registros
 
         private void BuscarButton_Click(object sender, EventArgs e)
         {
-
+            int Id = Utilidades.ToInt(empleadoIdTextBox.Text);
+            using (var conn = new DAL.Repositorio<Empleado>())
+            {
+                Empleado empleado = conn.Buscar(p => p.EmpleadoId == Id);
+                if (empleado != null)
+                {
+                    nombresTextBox.Text = empleado.Nombres;
+                    fechaNacimientoDateTimePicker.Value = empleado.FechaNacimiento;
+                    sueldoTextBox.Text = Convert.ToString(empleado.Sueldo);
+                }
+                else
+                {
+                    MessageBox.Show("No encotrado...");
+                }
+            }
         }
     }
 }
